@@ -20,7 +20,7 @@ Create a Local Repository: Initialize a local Git repository.
     ●	git init
     
 Dependencies and Virtual Environment
-Creating a Virtual Environment: Create a virtual environment named CoreChronicles.
+Creating a Virtual Environment: Create a virtual environment named BeautySalon.
 
      python -m venv myprojectenv
      
@@ -38,10 +38,10 @@ Creating a Django Project: Generate a new Django project.
 
     ●	django-admin startproject myproject
     
-Replace CoreChronicles with your desired project name. Running the Django Server
+Replace BeautySalon with your desired project name. Running the Django Server
 Navigate to your project directory and start the Django server.
 
-    ●	cd CoreChronicles
+    ●	cd BeautySalon
     ●	pip install psycopg2
     ●	pip install psycopg2-binary
     ●	python manage.py runserver
@@ -52,8 +52,7 @@ We move to the folder that has the project
 
     * python3 manage.py runserver
     
-In Django, an application is a web application that does something – a self-contained feature or functionality of your project. Think of it as a specific district or neighborhood within our city, dedicated to a particular purpose, 
-like residential, commercial, or industrial. Create your first app with:
+In Django, an application is a web application that does something – a self-contained feature or functionality of your project. Think of it as a specific district or neighborhood within our city, dedicated to a particular purpose, like residential, commercial, or industrial. Create your first app with:
 
     python manage.py startapp myapp
     
@@ -74,7 +73,7 @@ Update the DATABASES settings in settings.py with your PostgreSQL credentials.
      DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'corechronilesdatabase',
+        'NAME': 'beautysalondatabase',
         'USER': 'postgres',
         'PASSWORD': 'yourpassword',
         'HOST': 'localhost',
