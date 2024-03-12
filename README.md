@@ -100,15 +100,91 @@ This app will contain the models, serializers, views, and URLs for your REST API
 Copy the model definitions from your provided code and paste them into models.py inside 
 your app directory (myproject/myapp/models.py).
 
+    from django.db import models
+
+    class Client(models.Model):
+      name = models.CharField(max_length=100)
+      phone = models.CharField(max_length=15)
+      email = models.EmailField()
+
+    class Service(models.Model):
+      name = models.CharField(max_length=100)
+      description = models.TextField()
+      price = models.DecimalField(max_digits=10, decimal_places=2)
+      details = models.JSONField()
+
+    class Appointment(models.Model):
+      client = models.ForeignKey(Client, on_delete=models.CASCADE)
+      service = models.ForeignKey(Service, on_delete=models.CASCADE)
+      date = models.DateField()
+      time = models.TimeField()
+      additional_info = models.JSONField(blank=True, null=True)
+
+    class Booking(models.Model):
+      appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE)
+      payment_status = models.BooleanField(default=False)
+
+    class UploadedFile(models.Model):
+      file = models.FileField(upload_to='uploads/')
+      uploaded_at = models.DateTimeField(auto_now_add=True)
+
 4. Serializers:
 
 Copy the serializer definitions from your provided code and paste them into 
 serializers.py inside your app directory (myproject/myapp/serializers.py).
 
+    from rest_framework import serializers
+    from .models import Client, Service, Appointment, Booking, UploadedFile
+
+    class ClientSerializer(serializers.ModelSerializer):
+      class Meta:
+        model = Client
+        fields = '__all__'
+
+    class ServiceSerializer(serializers.ModelSerializer):
+      class Meta:
+        model = Service
+        fields = '__all__'
+
+    class AppointmentSerializer(serializers.ModelSerializer):
+      class Meta:
+        model = Appointment
+        fields = '__all__'
+
+    class BookingSerializer(serializers.ModelSerializer):
+      class Meta:
+        model = Booking
+        fields = '__all__'
+
+    class UploadedFileSerializer(serializers.ModelSerializer):
+      class Meta:
+        model = UploadedFile
+        fields = '__all__'
+
 5. Views:
 
 Copy the view functions and classes from your provided code and paste them into 
 views.py inside your app directory (myproject/myapp/views.py).
+
+    from rest_framework.decorators import api_view
+    from rest_framework.response import Response
+    from rest_framework import status
+    from .models import Client, Service, Appointment, Booking
+    from .serializers import ClientSerializer, ServiceSerializer, AppointmentSerializer, BookingSerializer, UploadedFileSerializer
+
+    @api_view(['GET', 'POST'])
+    def client_list(request):
+      if request.method == 'GET':
+        clients = Client.objects.all()
+        serializer = ClientSerializer(clients, many=True)
+        return Response(serializer.data)
+        
+    elif request.method == 'POST':
+        serializer = ClientSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 6. URLs:
 
@@ -116,11 +192,51 @@ Copy the URL patterns from your provided code and paste them into urls.py inside
 app directory (myproject/myapp/urls.py).
 Ensure you import the necessary views (from . import views) at the top of the file.
 
+    from django.urls import path
+    from . import views
+
+    urlpatterns = [
+       path('clients/', views.client_list),
+       path('services/', views.service_list),
+       path('appointments/', views.appointment_list),
+       path('bookings/', views.booking_list),
+       path('files/', views.uploaded_file_list),
+    ]
+
 7. Settings:
 
 In your project's settings.py, add your app to the INSTALLED_APPS list ('myapp').
 Make sure your project's urls.py includes your app's URLs. You might include them using 
 the include function (path('api/', include('myapp.urls'))).
+
+# Package installations
+    pip install django djangorestframework django-filter django-rest-swagger boto3 django-storages psycopg2-binary
+
+# Git configuration
+    git config --global user.name "Tu Nombre"
+    git config --global user.email “tucorreo@example.com”
+
+# Creating the local repository
+    mkdir BeautySalonAPI
+    cd BeautySalonAPI
+    git init
+
+# # Creating the virtual environment
+    python -m venv myprojectenv
+    source myprojectenv/bin/activate  # Linux / macOS
+    myprojectenv\Scripts\activate  # Windows
+
+# Installing Django and Django Rest Framework
+    pip install django djangorestframework django-filter django-rest-swagger boto3 django-storages psycopg2-binary
+
+# Creating the Django project
+    django-admin startproject BeautySalonAPI
+
+# Changing to the project directory
+    cd BeautySalonAPI
+
+# Creating a new application
+    python manage.py startapp BeautySalonApp
 
 8. Run Migrations:
 
