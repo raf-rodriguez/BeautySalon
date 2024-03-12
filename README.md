@@ -1,5 +1,4 @@
-Introduction
-Welcome to CoreChronicles, a platform for blogs and sharing ideas through a RESTful API!
+At BeautySalon, we offer a wide range of services and features to meet the needs of our community of beauty lovers.
 
 Basic Requirements
 Make sure you have the following packages installed:
