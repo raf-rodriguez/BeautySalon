@@ -142,12 +142,12 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AWS_ACCESS_KEY_ID = 'AKIA5FTZAD7JYPIRERRS'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'aaaaaaaaffffddddghhhhhhh'
+AWS_SECRET_ACCESS_KEY = 'ddddddfhhuguggh/gyjkhhjjhvhbkjjhh'
 AWS_STORAGE_BUCKET_NAME = 'rafrodriguezbucket'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = 'public-read'
-AWS_S3_REGION_NAME = 'us-east-2'
+AWS_S3_REGION_NAME = 'us-pr-2'
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
 # Static files configuration
